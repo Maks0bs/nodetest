@@ -23,8 +23,10 @@ else{
 	mongoUri = process.env.MONGO_URI || 'mongodb+srv://user1:pass1@nodeapi-3ertg.mongodb.net/'
 }
 
-
+console.log('-----------------------------------------------------');
+console.log(mongoUri);
 console.log(strPref);
+console.log('-----------------------------------------------------');
 
 mongoose.connect(
   mongoUri,
@@ -81,9 +83,9 @@ app.use(function (err, req, res, next){
 
 if (process.env.NODE_ENV === 'production') {
 	//set static folder
-	app.use(express.static('apitestfront/build'))
+	app.use(express.static('client/build'))
 	/*app.get('*', (req, res) => {
-		res.sendFile(path.resolve(__dirname, 'apitestfront', 'build', 'index.html'));
+		res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
 	})*/
 }
 

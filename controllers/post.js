@@ -34,6 +34,7 @@ exports.postById = (req, res, next, id) => {
 };*/
 
 exports.getPosts = async (req, res) => {
+	console.log('entered getPosts');
     // get current page from req.query or use default value of 1
     const currentPage = req.query.page || 1;
     // return 3 posts per page
@@ -55,6 +56,7 @@ exports.getPosts = async (req, res) => {
                 .select("_id title body likes");
         })
         .then(posts => {
+        	console.log('await post.find')
             res.status(200).json(posts);
         })
         .catch(err => console.log(err));
