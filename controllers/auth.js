@@ -39,7 +39,7 @@ exports.signin = (req, res) => {
 		}
 
 		//generate a token with user id and secret
-		let token = jwt.sign({_id: user._id, role: user.role}, process.env.JWT_SECRET);
+		let token = jwt.sign({_id: user._id, role: user.role}, process.env.JWT_SECRET || 'randomsecretcode');
 
 		//persist the token as 't' is cookie with expiry date
 		res.cookie("t", token, {expire: new Date() + 9999});
@@ -87,7 +87,7 @@ exports.forgotPassword = (req, res) => {
         // generate a token with user id and secret
         const token = jwt.sign(
             { _id: user._id, iss: "NODEAPI", role: user.role },
-            process.env.JWT_SECRET
+            process.env.JWT_SECRET || 'randomsecretcode'
         );
  
         // email data
@@ -96,10 +96,10 @@ exports.forgotPassword = (req, res) => {
             to: email,
             subject: "Password Reset Instructions",
             text: `Please use the following link to reset your password: ${
-                process.env.CLIENT_URL
+                process.env.CLIENT_URL || 'test'
             }/reset-password/${token}`,
             html: `<p>Please use the following link to reset your password:</p> <p>${
-                process.env.CLIENT_URL
+                process.env.CLIENT_URL || 'test'
             }/reset-password/${token}</p>`
         };
  
@@ -166,7 +166,7 @@ exports.socialLogin = (req, res) => {
             // generate a token with user id and secret
             const token = jwt.sign(
                 { _id: user._id, iss: "NODEAPI", role: user.role },
-                process.env.JWT_SECRET
+                process.env.JWT_SECRET || 'randomsecretcode'
             );
             res.cookie("t", token, { expire: new Date() + 9999 });
             // return response with user and token to frontend client
@@ -181,7 +181,7 @@ exports.socialLogin = (req, res) => {
             // generate a token with user id and secret
             const token = jwt.sign(
                 { _id: user._id, iss: "NODEAPI", role: user.role },
-                process.env.JWT_SECRET
+                process.env.JWT_SECRET || 'randomsecretcode'
             );
             res.cookie("t", token, { expire: new Date() + 9999 });
             // return response with user and token to frontend client
