@@ -12,8 +12,17 @@ let path = require('path');
 
 dotenv.config()
 
+let mongoUri;
+if (process.env.NODE_ENV === 'production'){
+	mongoUri = process.env.MONGODB_DEPLOY_URI || 'mongodb://user1:pass1@ds259119.mlab.com:59119/heroku_f06273bq';
+}
+else{
+	mongoUri = process.env.MONGO_URI || 'mongodb+srv://user1:pass1@nodeapi-3ertg.mongodb.net/'
+}
+
+
 mongoose.connect(
-  process.env.MONGO_URI,
+  mongoUri,
   {useNewUrlParser: true,
    useUnifiedTopology: true}
 )
@@ -68,9 +77,9 @@ app.use(function (err, req, res, next){
 if (process.env.NODE_ENV === 'production') {
 	//set static folder
 	app.use(express.static('apitestfront/build'))
-	app.get('*', (req, res) => {
+	/*app.get('*', (req, res) => {
 		res.sendFile(path.resolve(__dirname, 'apitestfront', 'build', 'index.html'));
-	})
+	})*/
 }
 
 let port = process.env.PORT || 8080;

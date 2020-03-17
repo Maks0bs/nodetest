@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon app.js",
     "start": "node app.js",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix apitestfront && npm run build --prefix apitestfront"
+    "maybe_noscipt": "NPM_CONFIG_PRODUCTION=false npm install --prefix apitestfront && npm run build --prefix apitestfront"
   },
   "keywords": [
     "node",
