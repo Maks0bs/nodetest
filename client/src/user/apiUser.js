@@ -1,4 +1,6 @@
-import {apiPrefix} from '../index'
+//let apiPrefix = 'http://localhost:8080'
+let apiPrefix = 'api'
+//change this before deploying
 
 export let read = (userId, token) => {
 	return fetch(`${apiPrefix}/user/${userId}`, {
@@ -49,6 +51,7 @@ export let remove = (userId, token) => {
 }
 
 export let list = () => {
+	console.log(apiPrefix)
 	return fetch(`${apiPrefix}/users`, {
 		method: "GET"
 	})

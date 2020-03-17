@@ -1,4 +1,6 @@
-import {apiPrefix} from '../index'
+//let apiPrefix = 'http://localhost:8080'
+let apiPrefix = 'api'
+//change this before deploying
 
 export let create = (userId, token, post) => {
 	//console.log("USER DATA UPDATE", user);

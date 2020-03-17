@@ -1,4 +1,7 @@
-import {apiPrefix} from '../index'
+//let apiPrefix = 'http://localhost:8080'
+let apiPrefix = 'api'
+//change this before deploying
+
 
 export let signup = (user) => {
 	return fetch(`${apiPrefix}/signup`, {
