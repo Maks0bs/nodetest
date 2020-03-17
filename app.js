@@ -12,14 +12,19 @@ let path = require('path');
 
 dotenv.config()
 
-let mongoUri;
+
+let mongoUri, strPref
 if (process.env.NODE_ENV === 'production'){
+	strPref = '/api'
 	mongoUri = process.env.MONGODB_DEPLOY_URI || 'mongodb://user1:pass1@ds259119.mlab.com:59119/heroku_f06273bq';
 }
 else{
+	strPref = '/';
 	mongoUri = process.env.MONGO_URI || 'mongodb+srv://user1:pass1@nodeapi-3ertg.mongodb.net/'
 }
 
+
+console.log(strPref);
 
 mongoose.connect(
   mongoUri,
@@ -39,7 +44,7 @@ let postRoutes = require('./routes/post');
 let authRoutes = require('./routes/auth');
 let userRoutes = require('./routes/user');
 //apiDocs
-app.get('/api', (req, res) => {
+app.get(strPref, (req, res) => {
 	fs.readFile('docs/apiDocs.json', (err, data) => {
 		if (err){
 			res.status(400).json({
@@ -62,11 +67,11 @@ app.use(cookieParser());
 
 app.use(expressValidator());
 
-app.use("/api", postRoutes);
+app.use(strPref, postRoutes);
 
-app.use("/api", authRoutes);
+app.use(strPref, authRoutes);
 
-app.use("/api", userRoutes);
+app.use(strPref, userRoutes);
 
 app.use(function (err, req, res, next){
 	if (err.name === "UnauthorizedError") {
