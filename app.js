@@ -62,11 +62,11 @@ app.use(cookieParser());
 
 app.use(expressValidator());
 
-app.use("/", postRoutes);
+app.use("/api", postRoutes);
 
-app.use("/", authRoutes);
+app.use("/api", authRoutes);
 
-app.use("/", userRoutes);
+app.use("/api", userRoutes);
 
 app.use(function (err, req, res, next){
 	if (err.name === "UnauthorizedError") {
