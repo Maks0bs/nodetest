@@ -47,10 +47,13 @@ export let remove = (userId, token) => {
 }
 
 export let list = () => {
+	console.log(process.env.REACT_APP_API_URL)
 	return fetch(`${process.env.REACT_APP_API_URL}/users`, {
 		method: "GET"
 	})
 	.then(response => {
+		console.log('response');
+		console.log(response);
 		return response.json();
 	})
 	.catch(err => console.log(err))
