@@ -4,8 +4,10 @@
   "description": "A nodejs api",
   "main": "app.js",
   "scripts": {
-    "dev": "nodemon app.js",
-    "start": "node app.js"
+    "start": "node app.js",
+    "client": "cd client && yarn start",
+    "server": "nodemon app.js",
+    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
     
   },
   "keywords": [
