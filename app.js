@@ -39,7 +39,7 @@ let postRoutes = require('./routes/post');
 let authRoutes = require('./routes/auth');
 let userRoutes = require('./routes/user');
 //apiDocs
-app.get('/', (req, res) => {
+app.get('/api', (req, res) => {
 	fs.readFile('docs/apiDocs.json', (err, data) => {
 		if (err){
 			res.status(400).json({
