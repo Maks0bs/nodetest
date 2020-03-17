@@ -1,6 +1,8 @@
+import {apiPrefix} from '../index'
+
 export let create = (userId, token, post) => {
 	//console.log("USER DATA UPDATE", user);
-	return fetch(`${process.env.REACT_APP_API_URL}/post/new/${userId}`, {
+	return fetch(`${apiPrefix}/post/new/${userId}`, {
 		method: "POST",
 		headers: {
 			Accept: "application/json",
@@ -15,7 +17,7 @@ export let create = (userId, token, post) => {
 }
 
 export let list = (page) => {
-	return fetch(`${process.env.REACT_APP_API_URL}/posts/?page=${page}`, {
+	return fetch(`${apiPrefix}/posts/?page=${page}`, {
 		method: "GET"
 	})
 	.then(response => {
@@ -26,7 +28,7 @@ export let list = (page) => {
 }
 
 export let singlePost = (postId) => {
-	return fetch(`${process.env.REACT_APP_API_URL}/post/${postId}`, {
+	return fetch(`${apiPrefix}/post/${postId}`, {
 		method: "GET"
 	})
 	.then(response => {
@@ -37,7 +39,7 @@ export let singlePost = (postId) => {
 }
 
 export let listByUser = (userId, token) => {
-	return fetch(`${process.env.REACT_APP_API_URL}/posts/by/${userId}`, {
+	return fetch(`${apiPrefix}/posts/by/${userId}`, {
 		method: "GET",
 		headers: {
 			Accept: 'application/json',
@@ -53,7 +55,7 @@ export let listByUser = (userId, token) => {
 }
 
 export let remove = (postId, token) => {
-	return fetch(`${process.env.REACT_APP_API_URL}/post/${postId}`, {
+	return fetch(`${apiPrefix}/post/${postId}`, {
 		method: "DELETE",
 		headers: {
 			Accept: "application/json",
@@ -69,7 +71,7 @@ export let remove = (postId, token) => {
 
 export let update = (postId, token, post) => {
 	//console.log("USER DATA UPDATE", user);
-	return fetch(`${process.env.REACT_APP_API_URL}/post/${postId}`, {
+	return fetch(`${apiPrefix}/post/${postId}`, {
 		method: "PUT",
 		headers: {
 			Accept: "application/json",
@@ -85,7 +87,7 @@ export let update = (postId, token, post) => {
 }
 
 export let like = (userId, token, postId) => {
-	return fetch(`${process.env.REACT_APP_API_URL}/post/like`, {
+	return fetch(`${apiPrefix}/post/like`, {
 		method: "PUT",
 		headers: {
 			Accept: "application/json",
@@ -103,7 +105,7 @@ export let like = (userId, token, postId) => {
 
 export let unlike = (userId, token, postId) => {
 	//console.log("USER DATA UPDATE", user);
-	return fetch(`${process.env.REACT_APP_API_URL}/post/unlike`, {
+	return fetch(`${apiPrefix}/post/unlike`, {
 		method: "PUT",
 		headers: {
 			Accept: "application/json",
@@ -120,7 +122,7 @@ export let unlike = (userId, token, postId) => {
 }
 
 export let comment = (userId, token, postId, comment) => {
-	return fetch(`${process.env.REACT_APP_API_URL}/post/comment`, {
+	return fetch(`${apiPrefix}/post/comment`, {
 		method: "PUT",
 		headers: {
 			Accept: "application/json",
@@ -137,7 +139,7 @@ export let comment = (userId, token, postId, comment) => {
 }
 
 export let uncomment = (userId, token, postId, comment) => {
-	return fetch(`${process.env.REACT_APP_API_URL}/post/uncomment`, {
+	return fetch(`${apiPrefix}/post/uncomment`, {
 		method: "PUT",
 		headers: {
 			Accept: "application/json",

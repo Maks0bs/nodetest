@@ -1,5 +1,7 @@
+import {apiPrefix} from '../index'
+
 export let read = (userId, token) => {
-	return fetch(`${process.env.REACT_APP_API_URL}/user/${userId}`, {
+	return fetch(`${apiPrefix}/user/${userId}`, {
 		method: "GET",
 		headers: {
 			Accept: "application/json",
@@ -16,7 +18,7 @@ export let read = (userId, token) => {
 
 export let update = (userId, token, user) => {
 	//console.log("USER DATA UPDATE", user);
-	return fetch(`${process.env.REACT_APP_API_URL}/user/${userId}`, {
+	return fetch(`${apiPrefix}/user/${userId}`, {
 		method: "PUT",
 		headers: {
 			Accept: "application/json",
@@ -32,7 +34,7 @@ export let update = (userId, token, user) => {
 }
 
 export let remove = (userId, token) => {
-	return fetch(`${process.env.REACT_APP_API_URL}/user/${userId}`, {
+	return fetch(`${apiPrefix}/user/${userId}`, {
 		method: "DELETE",
 		headers: {
 			Accept: "application/json",
@@ -47,8 +49,7 @@ export let remove = (userId, token) => {
 }
 
 export let list = () => {
-	console.log(process.env.REACT_APP_API_URL)
-	return fetch(`${process.env.REACT_APP_API_URL}/users`, {
+	return fetch(`${apiPrefix}/users`, {
 		method: "GET"
 	})
 	.then(response => {
@@ -72,7 +73,7 @@ export let updateUser = (user, next) => {
 }
 
 export let follow = (userId, token, followId) => {
-	return fetch(`${process.env.REACT_APP_API_URL}/user/follow`, {
+	return fetch(`${apiPrefix}/user/follow`, {
 		method: "PUT",
 		headers: {
 			Accept: "application/json",
@@ -90,7 +91,7 @@ export let follow = (userId, token, followId) => {
 }
 
 export let unfollow = (userId, token, unfollowId) => {
-	return fetch(`${process.env.REACT_APP_API_URL}/user/unfollow`, {
+	return fetch(`${apiPrefix}/user/unfollow`, {
 		method: "PUT",
 		headers: {
 			Accept: "application/json",
@@ -108,7 +109,7 @@ export let unfollow = (userId, token, unfollowId) => {
 }
 
 export let findPeople = (userId, token) => {
-	return fetch(`${process.env.REACT_APP_API_URL}/user/findpeople/${userId}`, {
+	return fetch(`${apiPrefix}/user/findpeople/${userId}`, {
 		method: "GET",
 		headers: {
 			Accept: "application/json",
