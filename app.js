@@ -16,17 +16,12 @@ dotenv.config()
 let mongoUri, strPref
 if (process.env.NODE_ENV === 'production'){
 	strPref = '/api'
-	mongoUri = process.env.MONGODB_DEPLOY_URI || 'mongodb://user1:pass1@ds259119.mlab.com:59119/heroku_f06273bq';
+	mongoUri = process.env.MONGODB_DEPLOY_URI || 'mongodb+srv://user1:pass1@nodeapi-3ertg.mongodb.net/'//'mongodb://user1:pass1@ds259119.mlab.com:59119/heroku_f06273bq';
 }
 else{
 	strPref = '/';
 	mongoUri = process.env.MONGO_URI || 'mongodb+srv://user1:pass1@nodeapi-3ertg.mongodb.net/'
 }
-
-console.log('-----------------------------------------------------');
-console.log(mongoUri);
-console.log(strPref);
-console.log('-----------------------------------------------------');
 
 mongoose.connect(
   mongoUri,
