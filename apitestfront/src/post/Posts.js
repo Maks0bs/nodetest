@@ -7,21 +7,39 @@ class Posts extends Component {
 	constructor(){
 		super()
 		this.state = {
-			posts: []
+			posts: [],
+			page: 1,
+			loading: false
 		}
 	}
 
-	componentDidMount(){
-		list().then(data => {
+	loadPosts = (page) => {
+		list(page).then(data => {
 			if (data.error){
 				console.log(data.error)
 			}
 			else{
 				this.setState({
-					posts: data
+					posts: data,
+					loading: false
 				})
 			}
 		})
+	}
+
+	loadMore = number => {
+        this.setState({ page: this.state.page + number, loading: true });
+        this.loadPosts(this.state.page + number);
+    };
+ 
+    loadLess = number => {
+        this.setState({ page: this.state.page - number, loading: true});
+        this.loadPosts(this.state.page - number);
+    };
+
+	componentDidMount(){
+		this.setState({loading: true})
+		this.loadPosts(this.state.page);
 	}
 
 	renderPosts = (posts) => {
@@ -77,16 +95,46 @@ class Posts extends Component {
 	}
 
 	render() {
-		let {posts} = this.state;
+		let {posts, page, loading} = this.state;
 		return (
 			<div className="container">
 				<h2 className="mt-5 mb-5">
-					{!posts.length ? 
+					{loading ? 
 						'Loading...' :
-						'Recent posts'}
+						''
+					}
+
+					{!loading && (
+						!posts.length ? 
+						'No more posts' :
+						'Recent posts'
+						)
+					}
 				</h2>
 
 				{this.renderPosts(posts)}
+
+				{page > 1 ? (
+                    <button
+                        className="btn btn-raised btn-warning mr-5 mt-5 mb-5"
+                        onClick={() => this.loadLess(1)}
+                    >
+                        Previous ({this.state.page - 1})
+                    </button>
+                ) : (
+                    ""
+                )}
+ 
+                {posts.length ? (
+                    <button
+                        className="btn btn-raised btn-success mt-5 mb-5"
+                        onClick={() => this.loadMore(1)}
+                    >
+                        Next ({page + 1})
+                    </button>
+                ) : (
+                    ""
+                )}
 			</div>
 		);
 	}

@@ -14,8 +14,8 @@ export let create = (userId, token, post) => {
 	.catch(err => console.log(err))
 }
 
-export let list = () => {
-	return fetch(`${process.env.REACT_APP_API_URL}/posts`, {
+export let list = (page) => {
+	return fetch(`${process.env.REACT_APP_API_URL}/posts/?page=${page}`, {
 		method: "GET"
 	})
 	.then(response => {

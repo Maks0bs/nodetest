@@ -11,7 +11,8 @@ class Signup extends Component {
 			email: "",
 			password: "",
 			error: "",
-			open: false
+			open: false,
+			recaptcha: false
 		}
 
 		//this.renderSignupForm = this.renderSignupForm.bind(this);
@@ -36,35 +37,74 @@ class Signup extends Component {
 		})
 	}*/
 
+	recaptchaHandler = e => {
+        this.setState({ error: "" });
+        let userDay = e.target.value.toLowerCase();
+        let dayCount;
+ 
+        if (userDay === "sunday") {
+            dayCount = 0;
+        } else if (userDay === "monday") {
+            dayCount = 1;
+        } else if (userDay === "tuesday") {
+            dayCount = 2;
+        } else if (userDay === "wednesday") {
+            dayCount = 3;
+        } else if (userDay === "thursday") {
+            dayCount = 4;
+        } else if (userDay === "friday") {
+            dayCount = 5;
+        } else if (userDay === "saturday") {
+            dayCount = 6;
+        }
+ 
+        if (dayCount === new Date().getDay()) {
+            this.setState({ recaptcha: true });
+            return true;
+        } else {
+            this.setState({
+                recaptcha: false
+            });
+            return false;
+        }
+    };
+
 	clickSubmit = (event) => {
 		event.preventDefault();
-		let {name, email, password} = this.state;
+		let {name, email, password, recaptcha} = this.state;
 		let user ={
 			name: name,
 			email: email,
 			password: password
 		}
 
-		signup(user)
-		.then((data) => {
-			if (data.error){
-				this.setState({
-					error: data.error
-				})
-			}
-			else{
-				this.setState({
-					name: "",
-					email: "",
-					password: "",
-					error: "",
-					open: true
-				})
-			}
-		})
+		if (recaptcha){
+			signup(user)
+			.then((data) => {
+				if (data.error){
+					this.setState({
+						error: data.error
+					})
+				}
+				else{
+					this.setState({
+						name: "",
+						email: "",
+						password: "",
+						error: "",
+						open: true
+					})
+				}
+			})
+		}
+		else{
+			this.setState({
+				error: "What day is it today? Please write correct answer"
+			})
+		}
 	}
 
-	renderSignupForm(name, email, password){
+	renderSignupForm(name, email, password, recaptcha){
 		return (
 			<form>
 				<div className="form-group">
@@ -95,6 +135,18 @@ class Signup extends Component {
 					/>
 				</div>
 
+				<div className="form-group">
+				    <label className="text-muted">
+				        {recaptcha ? "Thanks. You got it!" : "What day is today?"}
+				    </label>
+				 
+				    <input
+				        onChange={this.recaptchaHandler}
+				        type="text"
+				        className="form-control"
+				    />
+				</div>
+
 				<button 
 					className="btn btn-raised btn-primary"
 					onClick={this.clickSubmit}
@@ -106,7 +158,7 @@ class Signup extends Component {
 	}
 
 	render(){
-		let {name, email, password, error, open} = this.state;
+		let {name, email, password, error, open, recaptcha} = this.state;
 		return (
 			<div className="container">
 				<h2 className="mt-5 mb-5">Signup</h2>
@@ -125,7 +177,7 @@ class Signup extends Component {
 					New account is successfully created. <Link to="/signin">Please sign in.</Link>
 				</div>
 
-				{this.renderSignupForm(name, email, password)}
+				{this.renderSignupForm(name, email, password, recaptcha)}
 			</div>
 		);
 	}

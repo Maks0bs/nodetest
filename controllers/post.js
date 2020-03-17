@@ -5,7 +5,7 @@ let _ = require('lodash')
 
 exports.postById = (req, res, next, id) => {
 	Post.findById(id)
-	.populate("postedBy", "_id name")
+	.populate("postedBy", "_id name role")
 	.populate('comments.postedBy', '_id name')
 	//.populate('comments', 'text created postedBy')
 	.exec((err, post) => {
@@ -19,13 +19,7 @@ exports.postById = (req, res, next, id) => {
 	})
 }
 
-exports.getPosts = (req, res) => {
-	/*res.json({
-		posts: [
-			{title: "First post"},
-			{title: "Second post"}
-		]
-	});*/
+/*exports.getPosts = (req, res) => {
 	let posts = Post.find()
 	
 	.populate("postedBy", "_id name")
@@ -37,6 +31,33 @@ exports.getPosts = (req, res) => {
 		res.json(posts);
 	})
 	.catch(err => console.log(err));
+};*/
+
+exports.getPosts = async (req, res) => {
+    // get current page from req.query or use default value of 1
+    const currentPage = req.query.page || 1;
+    // return 3 posts per page
+    const perPage = 3;
+    let totalItems;
+ 
+    const posts = await Post.find()
+        // countDocuments() gives you total count of posts
+        .countDocuments()
+        .then(count => {
+            totalItems = count;
+            return Post.find()
+                .skip((currentPage - 1) * perPage)
+                //.populate("comments", "text created")
+                .populate("comments.postedBy", "_id name")
+                .populate("postedBy", "_id name")
+                .sort({ date: -1 })
+                .limit(perPage)
+                .select("_id title body likes");
+        })
+        .then(posts => {
+            res.status(200).json(posts);
+        })
+        .catch(err => console.log(err));
 };
 
 exports.createPost = (req, res, next) => {
@@ -102,7 +123,11 @@ exports.postsByUser = (req, res) =>{
 }
 
 exports.isPoster = (req, res, next) => {
-	let isPoster = req.post && req.auth && req.post.postedBy && (req.post.postedBy._id == req.auth._id);
+	let sameUser = req.post && req.auth && req.post.postedBy &&
+		(req.post.postedBy._id == req.auth._id);
+	let adminUser = req.post && req.auth && req.auth.role === 'admin';
+	let isPoster = sameUser || adminUser;
+
 
 	if (!isPoster){
 		return res.status(403).json({

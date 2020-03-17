@@ -109,6 +109,11 @@ class EditProfile extends Component {
 						error: data.error
 					})
 				}
+				else if (isAuthenticated().user.role === "admin"){
+					this.setState({
+						redirectToProfile: true
+					})
+				}
 				else{
 					updateUser(data, () => {
 						this.setState({
@@ -232,7 +237,9 @@ class EditProfile extends Component {
 				 	onError={i => (i.target.src = `${DefaultProfile}`)}
 				/>
 
-				{this.renderSignupForm(name, email, password, about)}
+				{isAuthenticated().user.role === "admin" ||
+				    (isAuthenticated().user._id === id &&
+				    this.renderSignupForm(name, email, password, about))}
 			</div>
 		);
 	}
