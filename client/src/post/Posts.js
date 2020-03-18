@@ -51,7 +51,7 @@ class Posts extends Component {
 					return (
 						<div className="card col-md-4" key={i}>
 							<div className="card-body">
-								<img src={`${process.env.REACT_APP_API_URL || '/api'}
+								<img src={`${process.env.REACT_APP_API_URL || ''}
 									/post/photo/${post._id}`} 
 									alt={post.title}
 									onError={
