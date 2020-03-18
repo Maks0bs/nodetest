@@ -1,5 +1,11 @@
 //let apiPrefix = 'http://localhost:8080'
-let apiPrefix = 'api'
+let apiPrefix;
+if (process.env.NODE_ENV === 'production'){
+	apiPrefix = '/api'
+}
+else{
+	apiPrefix = 'http://localhost:8080';
+}
 //change this before deploying
 
 export let read = (userId, token) => {

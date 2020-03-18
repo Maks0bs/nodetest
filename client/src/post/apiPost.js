@@ -1,5 +1,11 @@
 //let apiPrefix = 'http://localhost:8080'
-let apiPrefix = 'api'
+let apiPrefix;
+if (process.env.NODE_ENV === 'production'){
+	apiPrefix = '/api'
+}
+else{
+	apiPrefix = 'http://localhost:8080';
+}
 //change this before deploying
 
 export let create = (userId, token, post) => {
@@ -30,6 +36,7 @@ export let list = (page) => {
 }
 
 export let singlePost = (postId) => {
+	console.log(apiPrefix);
 	return fetch(`${apiPrefix}/post/${postId}`, {
 		method: "GET"
 	})
