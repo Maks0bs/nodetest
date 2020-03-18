@@ -26,6 +26,7 @@ else{
 console.log('---------------------------------------------');
 console.log(mongoUri);
 console.log(strPref);
+console.log(process.env.TEST_VARIABLE_FOR_API);
 console.log('----------------------------------------------');
 
 mongoose.connect(
