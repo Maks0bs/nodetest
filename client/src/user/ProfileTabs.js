@@ -1,4 +1,4 @@
- || '/api'import React, { Component } from 'react';
+import React, { Component } from 'react';
 import {Link} from 'react-router-dom'
 import DefaultProfile from '../images/avatar.jpg'
 
