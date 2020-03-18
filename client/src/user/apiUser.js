@@ -3,6 +3,8 @@ let apiPrefix = 'api'
 //change this before deploying
 
 export let read = (userId, token) => {
+	console.log('making fetcht to');
+	console.log(`${apiPrefix}/user/${userId}`);
 	return fetch(`${apiPrefix}/user/${userId}`, {
 		method: "GET",
 		headers: {
@@ -12,6 +14,8 @@ export let read = (userId, token) => {
 		}
 	})
 	.then(response => {
+		console.log('got response');
+		console.log(response);
 		return response.json();
 	})
 	.catch(err => console.log(err))
