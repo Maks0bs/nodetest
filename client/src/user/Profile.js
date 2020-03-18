@@ -107,7 +107,7 @@ class Profile extends Component {
 		}
 
 		let photoUrl = user._id ? 
-			`${process.env.REACT_APP_API_URL}/user/photo/${user._id}?${new Date().getTime()}` :
+			`${process.env.REACT_APP_API_URL || '/api'}/user/photo/${user._id}?${new Date().getTime()}` :
 			DefaultProfile
 
 		return (

@@ -134,7 +134,7 @@ class Comment extends Component {
 											className="float-left mr-2"
 											height="30px"
 											width="30px"
-											src={`${process.env.REACT_APP_API_URL}
+											src={`${process.env.REACT_APP_API_URL || '/api'}
 												/user/photo/${comment.postedBy._id}`
 											} 
 											alt={comment.postedBy.name}

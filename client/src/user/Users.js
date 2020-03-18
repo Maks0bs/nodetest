@@ -30,7 +30,7 @@ class Users extends Component {
 				{users.map((user, i) => (
 					<div className="card col-md-4" key={i}>
 						<img 
-							src={`${process.env.REACT_APP_API_URL}/user/photo/
+							src={`${process.env.REACT_APP_API_URL || '/api'}/user/photo/
 								${user._id}?${new Date().getTime()}`} 
 							alt={user.name} 
 							className="card-img-top"

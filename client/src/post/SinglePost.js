@@ -108,7 +108,7 @@ class SinglePost extends Component {
 		return (
 			<div className="card-body">
 				<img 
-					src={`${process.env.REACT_APP_API_URL}
+					src={`${process.env.REACT_APP_API_URL || '/api'}
 						/post/photo/${post._id}`} 
 					alt={post.title}
 					onError={

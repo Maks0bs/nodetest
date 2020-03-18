@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+ || '/api'import React, { Component } from 'react';
 import {Link} from 'react-router-dom'
 import DefaultProfile from '../images/avatar.jpg'
 
@@ -25,7 +25,7 @@ class ProfileTabs extends Component {
 												className="float-left mr-2"
 												height="30px"
 												width="30px"
-												src={`${process.env.REACT_APP_API_URL}
+												src={`${process.env.REACT_APP_API_URL  || '/api'}
 													/user/photo/${person._id}`
 												} 
 												alt={person.name}
@@ -60,7 +60,7 @@ class ProfileTabs extends Component {
 												className="float-left mr-2"
 												height="30px"
 												width="30px"
-												src={`${process.env.REACT_APP_API_URL}
+												src={`${process.env.REACT_APP_API_URL  || '/api'}
 													/user/photo/${person._id}`
 												} 
 												alt={person.name}
