@@ -11,6 +11,7 @@ class Posts extends Component {
 			page: 1,
 			loading: false
 		}
+
 	}
 
 	loadPosts = (page) => {
@@ -38,6 +39,10 @@ class Posts extends Component {
     };
 
 	componentDidMount(){
+		if (this.state.reload){
+			this.setState({reload: false});
+			window.location.reload();
+		}
 		this.setState({loading: true})
 		this.loadPosts(this.state.page);
 	}

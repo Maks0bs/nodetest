@@ -42,24 +42,24 @@ exports.getPosts = async (req, res) => {
     let totalItems;
  
     const posts = await Post.find()
-        // countDocuments() gives you total count of posts
-        .countDocuments()
-        .then(count => {
-            totalItems = count;
-            return Post.find()
-                .skip((currentPage - 1) * perPage)
-                //.populate("comments", "text created")
-                .populate("comments.postedBy", "_id name")
-                .populate("postedBy", "_id name")
-                .sort({ date: -1 })
-                .limit(perPage)
-                .select("_id title body likes");
-        })
-        .then(posts => {
-        	console.log('await post.find')
-            res.status(200).json(posts);
-        })
-        .catch(err => console.log(err));
+    // countDocuments() gives you total count of posts
+    .countDocuments()
+    .then(count => {
+        totalItems = count;
+        return Post.find()
+            .skip((currentPage - 1) * perPage)
+            //.populate("comments", "text created")
+            .populate("comments.postedBy", "_id name")
+            .populate("postedBy", "_id name")
+            .sort({ date: -1 })
+            .limit(perPage)
+            .select("_id title body likes");
+    })
+    .then(posts => {
+    	console.log('await post.find')
+        res.status(200).json(posts);
+    })
+    .catch(err => console.log(err));
 };
 
 exports.createPost = (req, res, next) => {

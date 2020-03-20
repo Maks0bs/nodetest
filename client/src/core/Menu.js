@@ -18,10 +18,11 @@ let Menu = (props) => {
 		<div>
 			<ul className="nav nav-tabs bg-primary">
 			 	<li className="nav-item">
-			    	<Link 
+			    	<Link
 			    		className="nav-link" 
 			    		style={isActive(history, "/")} 
 			    		to="/"
+			    		//href="/"
 			    	>
 			    		Home
 			    	</Link>
